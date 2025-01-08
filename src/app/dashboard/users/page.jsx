@@ -3,14 +3,16 @@ import Link from "next/link";
 import styles from "@/app/ui/dashboard/users/users.module.css";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import { fetchUsers } from "@/app/lib/data";
+import Search from "@/app/ui/dashboard/search/search";
 
-const UsersPage =async () => {
-  const users = await fetchUsers();
+const UsersPage =async ({searchParams}) => {
+  const q =searchParams?.q || "";
+  const users = await fetchUsers(q);
   // console.log("fetched data",users)
     return (
       <div className={styles.container}>
       <div className={styles.top}>
-      {/* <Search placeholder="Search for a user..." /> */}
+      <Search placeholder="Search for a user..." />
         <Link href="/dashboard/users/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
