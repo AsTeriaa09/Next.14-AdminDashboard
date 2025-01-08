@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/app/ui/dashboard/users/users.module.css";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
+import { fetchUsers } from "@/app/lib/data";
 
-const UsersPage = () => {
+const UsersPage =async () => {
+  const users = await fetchUsers();
+  // console.log("fetched data",users)
     return (
       <div className={styles.container}>
       <div className={styles.top}>
@@ -24,7 +27,7 @@ const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {users.map((user) => (
+          {users.map((user) => (
             <tr key={user.id}>
               <td>
                 <div className={styles.user}>
@@ -49,7 +52,7 @@ const UsersPage = () => {
                       View
                     </button>
                   </Link>
-                  <form action={deleteUser}>
+                  <form>
                     <input type="hidden" name="id" value={(user.id)} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Delete
@@ -58,7 +61,7 @@ const UsersPage = () => {
                 </div>
               </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
       <Pagination />
