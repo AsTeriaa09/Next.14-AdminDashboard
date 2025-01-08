@@ -7,7 +7,9 @@ import Search from "@/app/ui/dashboard/search/search";
 
 const UsersPage =async ({searchParams}) => {
   const q =searchParams?.q || "";
-  const users = await fetchUsers(q);
+  const page= searchParams?.page || 1;
+  const {count,users}= await fetchUsers(q, page);
+
   // console.log("fetched data",users)
     return (
       <div className={styles.container}>
@@ -66,7 +68,7 @@ const UsersPage =async ({searchParams}) => {
           ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
       </div>
     )
   }
